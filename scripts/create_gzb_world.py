@@ -7,6 +7,7 @@ def conf():
   map_path = ''
   img = []
   size = []
+  count = 0
 
   s = '<?xml version="1.0" ?>\n\
   <sdf version="1.4" xmlns:xacro="http://ros.org/wiki/xacro">\n\
@@ -54,8 +55,11 @@ def conf():
     for i in range(size[1]):
       for j in range(size[0]):
         if thresh[i,j,0] == np.array([0]):
-          print(i-size[1]/2,j-size[0]/2)
-          f.write(maze % (i-size[1]/2,j-size[0]/2,0.05,0,0,0))
+          if count <= 1000:
+            print(i-size[1]/2,j-size[0]/2)
+            f.write(maze % ((i-size[1]/2)*0.001,(j-size[0]/2)*0.001,0.025,0,0,0))
+            count += 1
+    # f.write(maze % (1,1,0.025,0,0,0))
     f.write(end)
 
 if __name__ == '__main__':
